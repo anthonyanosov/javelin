@@ -37,6 +37,10 @@ func main() {
 			complexity := 1
 
 			ast.Inspect(fn.Body, func(n ast.Node) bool {
+				// For nested anonymous functions, step over it
+				if _, ok := n.(*ast.FuncDecl); ok {
+					return false
+				}
 				switch t := n.(type) {
 				case *ast.IfStmt:
 					complexity++
