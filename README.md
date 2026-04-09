@@ -29,6 +29,10 @@ Complexity starts at `1` and increases for:
 - `case` clauses in `switch`
 - logical `&&` and `||`
 
+Here's how satellite 🛰️ looks in Neovim when running `<leader>sc`:
+
+<img src="/assets/demo.png" alt="demo" width="500"/>
+
 ## Requirements
 
 - Go `1.22+`
