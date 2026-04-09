@@ -1,8 +1,10 @@
 package main
 
 import (
+	"encoding/json"
 	"flag"
 	"fmt"
+	"os"
 	"github.com/anthonyanosov/javelin/pkg"
 )
 
@@ -12,11 +14,13 @@ func main() {
 
 	funs, err := javelin.AnalyzeFile(*src)
 	if err != nil {
-		fmt.Println("Error:", err)
-		return
+		fmt.Fprintln(os.Stderr, "Error:", err)
+		os.Exit(1)
 	}
 
-	for _, f := range funs {
-		fmt.Printf("%+v\n", f)
+	enc := json.NewEncoder(os.Stdout)
+	if err := enc.Encode(funs); err != nil {
+		fmt.Fprintln(os.Stderr, "Error encoding JSON:", err)
+		os.Exit(1)
 	}
 }

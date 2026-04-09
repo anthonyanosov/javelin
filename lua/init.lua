@@ -3,7 +3,12 @@ local ns = vim.api.nvim_create_namespace("javelin")
 
 function M.show_complexity()
 	local file = vim.api.nvim_buf_get_name(0)
-	local handle = io.popen("javelin -src " .. file)
+	local cmd = "javelin -src " .. vim.fn.shellescape(file) .. " 2>&1"
+	local handle = io.popen(cmd)
+	if not handle then
+		vim.notify("Javelin: failed to run analyzer command", vim.log.levels.ERROR)
+		return
+	end
 	local result = handle:read("*a")
 	handle:close()
 
