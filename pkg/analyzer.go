@@ -1,4 +1,4 @@
-package javelin
+package satellite
 
 import (
 	"go/ast"

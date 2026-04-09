@@ -1,6 +1,6 @@
-# Javelin 🛰️
+# Satellite 🛰️
 
-Javelin is a lightweight Neovim plugin + Go CLI for showing Go function
+Satellite is a lightweight Neovim plugin + Go CLI for showing Go function
 cyclomatic complexity inline, directly in your editor.
 
 It analyzes the current Go buffer and renders `🛰️ <complexity>` at end-of-line
@@ -15,10 +15,10 @@ for each function declaration.
 
 ## How It Works
 
-Javelin has two layers:
+Satellite has two layers:
 
-- `javelin` CLI (`cmd/javelin/main.go`) parses a Go file and returns JSON metrics.
-- Neovim Lua module (`lua/javelin.lua`) runs the CLI and draws extmarks.
+- `sat` CLI (`cmd/sat/main.go`) parses a Go file and returns JSON metrics.
+- Neovim Lua module (`lua/satellite.lua`) runs the CLI and draws extmarks.
 
 Complexity starts at `1` and increases for:
 
@@ -30,7 +30,7 @@ Complexity starts at `1` and increases for:
 
 - Go `1.22+`
 - Neovim `0.9+`
-- `javelin` available on your `PATH`
+- `sat` available on your `PATH`
 
 ## Installation
 
@@ -39,7 +39,7 @@ Complexity starts at `1` and increases for:
 From the project root:
 
 ```bash
-go install ./cmd/javelin
+go install ./cmd/sat
 ```
 
 Ensure your Go bin directory is on `PATH` (commonly `$HOME/go/bin`):
@@ -55,10 +55,10 @@ If using a local checkout:
 ```lua
 return {
   {
-    dir = "~/path/to/javelin",
+    dir = "~/path/to/satellite",
     config = function()
-      local javelin = require("javelin")
-      vim.keymap.set("n", "<leader>jc", javelin.show_complexity, { desc = "Javelin: Show complexity" })
+      local satellite = require("satellite")
+      vim.keymap.set("n", "<leader>sc", satellite.show_complexity, { desc = "Satellite: Show complexity" })
     end,
   },
 }
@@ -69,10 +69,10 @@ If installed from GitHub:
 ```lua
 return {
   {
-    "anthonyanosov/javelin",
+    "anthonyanosov/satellite",
     config = function()
-      local javelin = require("javelin")
-      vim.keymap.set("n", "<leader>jc", javelin.show_complexity, { desc = "Javelin: Show complexity" })
+      local satellite = require("satellite")
+      vim.keymap.set("n", "<leader>sc", satellite.show_complexity, { desc = "Satellite: Show complexity" })
     end,
   },
 }
@@ -80,14 +80,14 @@ return {
 
 ## Usage
 
-- `:Javelin` - Analyze current Go buffer and show inline complexity
-- `:JavelinClear` - Clear all Javelin virtual text in current buffer
-- Optional keymap: `<leader>jc` (from config above)
+- `:Satellite` - Analyze current Go buffer and show inline complexity
+- `:SatelliteClear` - Clear all Satellite virtual text in current buffer
+- Optional keymap: `<leader>sc` (from config above)
 
 ## CLI Usage
 
 ```bash
-javelin -src ./path/to/file.go
+sat -src ./path/to/file.go
 ```
 
 Example output:
@@ -96,28 +96,40 @@ Example output:
 [{"Name":"process","Complexity":4,"StartLine":10,"EndLine":37}]
 ```
 
+## Migration from Javelin
+
+Backwards compatibility is currently included:
+
+- `:Javelin` and `:JavelinClear` still work as aliases.
+- `require("javelin")` still works as an alias to `require("satellite")`.
+- `cmd/javelin/main.go` remains available for transition.
+
+New installs should use `satellite` names and paths.
+
+`satellite` CLI remains available as a compatibility alias.
+
 ## Troubleshooting
 
-- `Javelin: failed to run analyzer command`
-  - `javelin` is not on `PATH` for your Neovim process.
-- `Javelin: failed to parse JSON output: ...`
-  - The CLI returned an error string. Run `javelin -src <file.go>` in terminal.
-- `Javelin: current buffer is not a Go file`
+- `Satellite: failed to run analyzer command`
+  - `sat` is not on `PATH` for your Neovim process.
+- `Satellite: failed to parse JSON output: ...`
+  - The CLI returned an error string. Run `sat -src <file.go>` in terminal.
+- `Satellite: current buffer is not a Go file`
   - Switch to a `.go` buffer first.
 
 ## Project Structure
 
-- `cmd/javelin/main.go` - CLI entrypoint
+- `cmd/sat/main.go` - primary CLI entrypoint
+- `cmd/satellite/main.go` - compatibility CLI entrypoint
 - `pkg/` - Go parser and complexity analysis
-- `lua/javelin.lua` - Neovim integration API
-- `plugin/javelin.lua` - auto-registered Neovim user commands
+- `lua/satellite.lua` - Neovim integration API
+- `plugin/satellite.lua` - auto-registered Neovim user commands
 
 ## Roadmap
 
 - Auto-refresh on `BufWritePost` for Go buffers
 - Configurable highlight group and icon
 - Package-level summary view
-- Custom AST parser? 🧪
 
 ## License
 

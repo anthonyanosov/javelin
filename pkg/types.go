@@ -1,4 +1,4 @@
-package javelin
+package satellite
 
 type FunctionMetric struct {
 	Name       string
