@@ -17,7 +17,7 @@ for each function declaration.
 
 Javelin has two layers:
 
-- `javelin` CLI (`cmd/main.go`) parses a Go file and returns JSON metrics.
+- `javelin` CLI (`cmd/javelin/main.go`) parses a Go file and returns JSON metrics.
 - Neovim Lua module (`lua/javelin.lua`) runs the CLI and draws extmarks.
 
 Complexity starts at `1` and increases for:
@@ -39,7 +39,7 @@ Complexity starts at `1` and increases for:
 From the project root:
 
 ```bash
-go install ./cmd
+go install ./cmd/javelin
 ```
 
 Ensure your Go bin directory is on `PATH` (commonly `$HOME/go/bin`):
@@ -107,7 +107,7 @@ Example output:
 
 ## Project Structure
 
-- `cmd/main.go` - CLI entrypoint
+- `cmd/javelin/main.go` - CLI entrypoint
 - `pkg/` - Go parser and complexity analysis
 - `lua/javelin.lua` - Neovim integration API
 - `plugin/javelin.lua` - auto-registered Neovim user commands
