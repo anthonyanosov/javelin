@@ -3,7 +3,7 @@ package main
 import (
 	"flag"
 	"fmt"
-	"github.com/anthonyanosov/javelin/pkg/javelin"
+	"github.com/anthonyanosov/javelin/pkg"
 )
 
 func main() {
