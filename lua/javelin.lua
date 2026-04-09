@@ -32,7 +32,7 @@ function M.show_complexity()
 
 	for _, f in ipairs(data) do
 		vim.api.nvim_buf_set_extmark(0, ns, f.StartLine, 0, {
-			virt_text = { { "☄️ " .. f.Complexity, "DiagnosticInfo" } },
+			virt_text = { { "🛰️ " .. f.Complexity, "DiagnosticInfo" } },
 			virt_text_pos = "eol",
 		})
 	end

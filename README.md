@@ -1,9 +1,9 @@
-# Javelin ☄️
+# Javelin 🛰️
 
 Javelin is a lightweight Neovim plugin + Go CLI for showing Go function
 cyclomatic complexity inline, directly in your editor.
 
-It analyzes the current Go buffer and renders `☄️ <complexity>` at end-of-line
+It analyzes the current Go buffer and renders `🛰️ <complexity>` at end-of-line
 for each function declaration.
 
 ## Features
