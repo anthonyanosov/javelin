@@ -80,7 +80,7 @@ return {
 
 ## Usage
 
-- `:JavelinComplexity` - Analyze current Go buffer and show inline complexity
+- `:Javelin` - Analyze current Go buffer and show inline complexity
 - `:JavelinClear` - Clear all Javelin virtual text in current buffer
 - Optional keymap: `<leader>jc` (from config above)
 
