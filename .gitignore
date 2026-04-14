@@ -1,0 +1,43 @@
+# Binaries
+/bin/
+/dist/
+/build/
+*.exe
+*.out
+
+# Go specific
+*.test
+*.prof
+
+# Go modules
+vendor/
+
+# Environment variables
+.env
+.env.*
+
+# IDE/editor
+.vscode/
+.idea/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# Docker volumes / local data
+data/
+elasticsearch-data/
+
+# Temporary files
+tmp/
+temp/
+
+# Coverage
+coverage.out
+
+# Misc
+*.swp
+*.swo
