@@ -1,3 +1,5 @@
+<img src="/assets/javelin.png" alt="javelin" width="200" />
+
 # Javelin
 
 Javelin is a search and discovery engine for Neovim plugins. It aims to make it easy to explore, compare, and find plugins across the ecosystem with fast, relevant search powered by Elasticsearch.
