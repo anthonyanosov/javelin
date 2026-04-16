@@ -1,4 +1,4 @@
-<img src="/assets/javelin.png" alt="javelin" width="200" />
+<img src="/assets/javelin_icon.png" alt="javelin" width="200" />
 
 # Javelin
 
