@@ -1,0 +1,29 @@
+{
+  "settings": {
+    "analysis": {
+      "normalizer": {
+        "lowercase_normalizer": {
+          "type": "custom",
+          "char_filter": [],
+          "filter": ["lowercase", "asciifolding"]
+        }
+      }
+    }
+  },
+  "mappings": {
+    "properties": {
+      "name": { "type": "text" },
+      "full_name": { "type": "keyword", "normalizer": "lowercase_normalizer" },
+      "repo_url": { "type": "keyword", "index": false },
+      "description": { "type": "text" },
+      "readme": { "type": "text" },
+      "stars": { "type": "integer" },
+      "forks": { "type": "integer" },
+      "language": { "type": "keyword", "normalizer": "lowercase_normalizer" },
+      "topics": { "type": "keyword", "normalizer": "lowercase_normalizer" },
+      "license": { "type": "keyword", "normalizer": "lowercase_normalizer" },
+      "updated_at": { "type": "date" },
+      "indexed_at": { "type": "date" }
+    }
+  }
+}
