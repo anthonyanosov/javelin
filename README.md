@@ -1,4 +1,6 @@
-# Javelin
+<img src="/assets/javelin.png" alt="javelin" width="300" />
+
+# Javelin ⚗️
 
 Javelin is an experimental programming language and compiler with a Go-inspired syntax that transpiles to C.
 
