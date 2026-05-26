@@ -3,12 +3,12 @@ package main
 import (
 	"flag"
 	"fmt"
-	"golem/lexer"
+	"javelin/lexer"
 	"os"
 )
 
 func main() {
-	src := flag.String("src", "main.gol", "Golem source file to compile")
+	src := flag.String("src", "main.jv", "Javelin source file to compile")
 	flag.Parse()
 
 	text, err := os.ReadFile(*src)
