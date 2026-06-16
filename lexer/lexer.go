@@ -21,13 +21,9 @@ func NewLexer(input string) *Lexer {
 }
 
 func (l *Lexer) Tokenize() {
-	fmt.Println("Beginning tokenization...")
-	fmt.Printf("Text: %s\n", l.text)
 	i := 0
 	text := l.text
-	fmt.Printf("Lenght: %d\n", len(text))
 	for i < len(text) {
-		fmt.Printf("i: %d\n", i)
 		c := rune(text[i])
 
 		// Check whitespace
