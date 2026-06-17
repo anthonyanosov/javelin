@@ -8,21 +8,10 @@ const (
 	INT
 	WALRUS
 	VAR
-	NUMBER
-	EQUALS
-	PLUS
-	MINUS
-	PRODUCT
-	QUOTIENT
 )
 
 var OPERATORS = map[string]TokenType{
 	":=": WALRUS,
-	"=":  EQUALS,
-	"+":  PLUS,
-	"-":  MINUS,
-	"*":  PRODUCT,
-	"/":  QUOTIENT,
 }
 
 var KEYWORDS = map[string]TokenType{

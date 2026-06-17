@@ -6,15 +6,14 @@ import (
 )
 
 type Lexer struct {
-	text      string
-	character byte
-	tokens    []Token
+	text   string
+	Tokens []Token
 }
 
 func NewLexer(input string) *Lexer {
 	l := Lexer{
 		text:   input,
-		tokens: []Token{},
+		Tokens: []Token{},
 	}
 
 	return &l
@@ -26,53 +25,56 @@ func (l *Lexer) Tokenize() {
 	for i < len(text) {
 		c := rune(text[i])
 
-		// Check whitespace
+		// Whitespace
 		if unicode.IsSpace(c) {
 			i++
 			continue
 		}
 
-		// Check keyword or identifier
+		// Keyword or identifier
 		if unicode.IsLetter(c) {
 			start := i
-			for unicode.IsLetter(rune(text[i])) || unicode.IsDigit(rune(text[i])) {
+			for i < len(text) && (unicode.IsDigit(rune(text[i])) || unicode.IsLetter(rune(text[i]))) {
 				i++
 			}
+
 			sample := text[start:i]
 
 			if value, ok := KEYWORDS[sample]; ok {
-				l.tokens = append(l.tokens, Token{Type: value, Literal: sample})
+				l.Tokens = append(l.Tokens, Token{Type: value, Literal: sample})
 			} else {
-				l.tokens = append(l.tokens, Token{Type: IDENT, Literal: sample})
+				l.Tokens = append(l.Tokens, Token{Type: IDENT, Literal: sample})
 			}
 			continue
 		}
 
-		// Check number/digit
+		// Integer
 		if unicode.IsDigit(c) {
 			start := i
-			for unicode.IsDigit(rune(text[i])) {
+			for i < len(text) && unicode.IsDigit(rune(text[i])) {
 				i++
 			}
 
-			number := text[start:i]
-			l.tokens = append(l.tokens, Token{Type: NUMBER, Literal: number})
+			integer := text[start:i]
+			l.Tokens = append(l.Tokens, Token{Type: INT, Literal: integer})
+			continue
 		}
 
-		// Walrus operator (not safe)
+		// Walrus operator
 		if c == ':' {
-			if text[i+1] == '=' {
-				l.tokens = append(l.tokens, Token{Type: WALRUS, Literal: ":="})
+			if i+1 < len(text) && text[i+1] == '=' {
+				l.Tokens = append(l.Tokens, Token{Type: WALRUS, Literal: ":="})
+				// Extra increment here to advance past the '=' in ':='
+				i += 2
 			}
+			continue
 		}
 
-		// Safety
 		i++
 	}
-	l.tokens = append(l.tokens, Token{Type: EOF})
-	fmt.Println("Tokenizing finished!")
+	l.Tokens = append(l.Tokens, Token{Type: EOF})
 }
 
 func (l *Lexer) PrintTokens() {
-	fmt.Println(l.tokens)
+	fmt.Println(l.Tokens)
 }

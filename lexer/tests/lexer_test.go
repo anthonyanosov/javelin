@@ -1,11 +1,71 @@
 package lexer
 
 import (
+	"javelin/lexer"
+	"reflect"
 	"testing"
 )
 
-func TestNextToken(t *testing.T) {
-	text := "x := 1"
+func TestTokenize(t *testing.T) {
+	tests := []struct {
+		name   string
+		source string
+		want   []lexer.Token
+	}{
+		{
+			"simple identifier and number",
+			"var x := 1",
+			[]lexer.Token{
+				{Type: lexer.VAR, Literal: "var"},
+				{Type: lexer.IDENT, Literal: "x"},
+				{Type: lexer.WALRUS, Literal: ":="},
+				{Type: lexer.INT, Literal: "1"},
+				{Type: lexer.EOF, Literal: ""},
+			},
+		},
+		{
+			"longer identifier",
+			"var number := 1",
+			[]lexer.Token{
+				{Type: lexer.VAR, Literal: "var"},
+				{Type: lexer.IDENT, Literal: "number"},
+				{Type: lexer.WALRUS, Literal: ":="},
+				{Type: lexer.INT, Literal: "1"},
+				{Type: lexer.EOF, Literal: ""},
+			},
+		},
+		{
+			"longer number",
+			"var x := 100",
+			[]lexer.Token{
+				{Type: lexer.VAR, Literal: "var"},
+				{Type: lexer.IDENT, Literal: "x"},
+				{Type: lexer.WALRUS, Literal: ":="},
+				{Type: lexer.INT, Literal: "100"},
+				{Type: lexer.EOF, Literal: ""},
+			},
+		},
+		{
+			"longer identifier and number",
+			"var number := 100",
+			[]lexer.Token{
+				{Type: lexer.VAR, Literal: "var"},
+				{Type: lexer.IDENT, Literal: "number"},
+				{Type: lexer.WALRUS, Literal: ":="},
+				{Type: lexer.INT, Literal: "100"},
+				{Type: lexer.EOF, Literal: ""},
+			},
+		},
+	}
 
-	got := Lexer.NextTokenJ
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			l := lexer.NewLexer(tt.source)
+			l.Tokenize()
+
+			if !reflect.DeepEqual(l.Tokens, tt.want) {
+				t.Errorf("got %v, want %v", l.Tokens, tt.want)
+			}
+		})
+	}
 }
