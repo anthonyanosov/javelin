@@ -4,10 +4,12 @@ import (
 	"flag"
 	"fmt"
 	"javelin/lexer"
+	"javelin/parser"
 	"os"
 )
 
 func main() {
+	// Input reading
 	src := flag.String("src", "main.jv", "Javelin source file to compile")
 	flag.Parse()
 
@@ -17,9 +19,13 @@ func main() {
 		os.Exit(1)
 	}
 
+	// Lexing
 	lex := lexer.NewLexer(string(text))
-
 	lex.Tokenize()
-	lex.PrintTokens()
+
+	// Parsing
+	parser := parser.NewParser(lex.Tokens)
+	program := parser.Parse()
+	fmt.Println(program)
 	os.Exit(0)
 }
