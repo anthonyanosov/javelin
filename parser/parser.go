@@ -69,4 +69,6 @@ func (p *Parser) parseDeclStatement() *ast.DeclStmt {
 
 	// Return an AST node with the identifier and the value
 	return &ast.DeclStmt{Ident: ident, Integer: value}
+
+	// TODO: Next task is to write some tests before moving on
 }

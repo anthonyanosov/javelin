@@ -10,10 +10,15 @@ import (
 
 func main() {
 	// Input reading
-	src := flag.String("src", "main.jv", "Javelin source file to compile")
+	// outFile := flag.String("o", "a.out", "Output executable file name")
 	flag.Parse()
 
-	text, err := os.ReadFile(*src)
+	if len(flag.Args()[0]) < 1 {
+		panic("Usage: jav <source_file.jv> [-o output_file]")
+	}
+
+	src := flag.Args()[0]
+	text, err := os.ReadFile(src)
 	if err != nil {
 		fmt.Fprintln(os.Stderr, "Failed to open file:", err)
 		os.Exit(1)
