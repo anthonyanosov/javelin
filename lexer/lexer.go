@@ -31,7 +31,7 @@ func (l *Lexer) Tokenize() {
 			continue
 		}
 
-		// Keyword or identifier
+		// Identifier
 		if unicode.IsLetter(c) {
 			start := i
 			for i < len(text) && (unicode.IsDigit(rune(text[i])) || unicode.IsLetter(rune(text[i]))) {
@@ -40,11 +40,7 @@ func (l *Lexer) Tokenize() {
 
 			sample := text[start:i]
 
-			if value, ok := KEYWORDS[sample]; ok {
-				l.Tokens = append(l.Tokens, Token{Type: value, Literal: sample})
-			} else {
-				l.Tokens = append(l.Tokens, Token{Type: IDENT, Literal: sample})
-			}
+			l.Tokens = append(l.Tokens, Token{Type: IDENT, Literal: sample})
 			continue
 		}
 

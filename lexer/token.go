@@ -7,15 +7,10 @@ const (
 	IDENT
 	INT
 	WALRUS
-	VAR
 )
 
 var OPERATORS = map[string]TokenType{
 	":=": WALRUS,
-}
-
-var KEYWORDS = map[string]TokenType{
-	"var": VAR,
 }
 
 type Token struct {

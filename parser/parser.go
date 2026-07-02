@@ -1,7 +1,6 @@
 package parser
 
 import (
-	"fmt"
 	"javelin/ast"
 	"javelin/lexer"
 	"strconv"
@@ -31,7 +30,6 @@ func (p *Parser) advance() {
 
 func (p *Parser) Parse() ast.Program {
 	var program ast.Program
-	fmt.Println(p.Tokens)
 	for p.current().Type != lexer.EOF {
 		stmt := p.parseStatement()
 		program = append(program, stmt)
@@ -41,30 +39,34 @@ func (p *Parser) Parse() ast.Program {
 
 func (p *Parser) parseStatement() ast.Stmt {
 	token := p.current()
-	if token.Type == lexer.VAR {
-		p.advance()
-		return p.parseVarStatement()
+	if token.Type == lexer.IDENT {
+		// TODO: We will later need to differentiate between declaration and assignment. For now, we're doing just declaration
+		return p.parseDeclStatement()
 	}
 	return nil
 }
 
-func (p *Parser) parseVarStatement() *ast.VarStmt {
-	var ident string
-	if p.current().Type != lexer.IDENT {
-		panic("Expected an identifier after 'var'")
-	}
-	ident = p.current().Literal
+func (p *Parser) parseDeclStatement() *ast.DeclStmt {
+	// First grab the name of the identifier to use in the AST node
+	ident := p.current().Literal
 	p.advance()
-	// TODO: Wrap things like INT, and later types like strings in a wrapper
-	if p.current().Type != lexer.WALRUS && p.current().Type != lexer.INT {
-		panic("Expected assignment or type after identifier")
+
+	// Check that the next token is a walrus operator
+	if p.current().Type != lexer.WALRUS {
+		panic("Expected an assignment operator after identifier")
 	}
 	p.advance()
+
+	// Grab the value
+	if p.current().Type != lexer.INT {
+		panic("Expected an integer value after assignment")
+	}
 	value, err := strconv.ParseInt(p.current().Literal, 10, 64)
 	if err != nil {
 		panic("Integer variable was assigned a non-integer value")
 	}
 	p.advance()
-	// TODO: We probably need to store variable type as well, especially if we want to transpile to C for the codegen
-	return &ast.VarStmt{Ident: ident, Integer: value}
+
+	// Return an AST node with the identifier and the value
+	return &ast.DeclStmt{Ident: ident, Integer: value}
 }

@@ -14,9 +14,8 @@ func TestTokenize(t *testing.T) {
 	}{
 		{
 			"simple identifier and number",
-			"var x := 1",
+			"x := 1",
 			[]lexer.Token{
-				{Type: lexer.VAR, Literal: "var"},
 				{Type: lexer.IDENT, Literal: "x"},
 				{Type: lexer.WALRUS, Literal: ":="},
 				{Type: lexer.INT, Literal: "1"},
@@ -25,9 +24,8 @@ func TestTokenize(t *testing.T) {
 		},
 		{
 			"longer identifier",
-			"var number := 1",
+			"number := 1",
 			[]lexer.Token{
-				{Type: lexer.VAR, Literal: "var"},
 				{Type: lexer.IDENT, Literal: "number"},
 				{Type: lexer.WALRUS, Literal: ":="},
 				{Type: lexer.INT, Literal: "1"},
@@ -36,9 +34,8 @@ func TestTokenize(t *testing.T) {
 		},
 		{
 			"longer number",
-			"var x := 100",
+			"x := 100",
 			[]lexer.Token{
-				{Type: lexer.VAR, Literal: "var"},
 				{Type: lexer.IDENT, Literal: "x"},
 				{Type: lexer.WALRUS, Literal: ":="},
 				{Type: lexer.INT, Literal: "100"},
@@ -47,9 +44,8 @@ func TestTokenize(t *testing.T) {
 		},
 		{
 			"longer identifier and number",
-			"var number := 100",
+			"number := 100",
 			[]lexer.Token{
-				{Type: lexer.VAR, Literal: "var"},
 				{Type: lexer.IDENT, Literal: "number"},
 				{Type: lexer.WALRUS, Literal: ":="},
 				{Type: lexer.INT, Literal: "100"},

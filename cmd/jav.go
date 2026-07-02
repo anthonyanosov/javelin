@@ -25,7 +25,6 @@ func main() {
 
 	// Parsing
 	parser := parser.NewParser(lex.Tokens)
-	program := parser.Parse()
-	fmt.Println(program)
+	parser.Parse()
 	os.Exit(0)
 }

@@ -6,9 +6,9 @@ type Stmt interface {
 	stmtNode()
 }
 
-type VarStmt struct {
+type DeclStmt struct {
 	Ident   string
 	Integer int64
 }
 
-func (v *VarStmt) stmtNode() {}
+func (v *DeclStmt) stmtNode() {}

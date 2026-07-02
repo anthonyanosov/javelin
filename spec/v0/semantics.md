@@ -2,7 +2,7 @@
 
 Variable Declaration:
 
-var_stmt := "var" IDENT ":=" INT
+decl_stmt := IDENT ":=" INT
 
 Rules:
 - INT is evaluated as a 64-bit integer literal
